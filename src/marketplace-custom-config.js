@@ -2,68 +2,100 @@
  * Marketplace specific configuration.
  */
 
-export const amenities = [
+export const filters = [
   {
-    key: 'towels',
-    label: 'Towels',
+    id: 'dates',
+    label: 'Dates',
+    type: 'BookingDateRangeFilter',
+    group: 'primary',
+    queryParamName: 'dates',
+    config: {},
   },
   {
-    key: 'bathroom',
-    label: 'Bathroom',
+    id: 'price',
+    label: 'Price',
+    type: 'PriceFilter',
+    group: 'primary',
+    queryParamName: 'price',
+    // Price filter configuration
+    // Note: unlike most prices this is not handled in subunits
+    config: {
+      min: 0,
+      max: 1000,
+      step: 5,
+    },
   },
   {
-    key: 'swimming_pool',
-    label: 'Swimming pool',
+    id: 'keyword',
+    label: 'Keyword',
+    type: 'KeywordFilter',
+    group: 'primary',
+    queryParamName: 'keywords',
+    // NOTE: If you are ordering search results by distance
+    // the keyword search can't be used at the same time.
+    // You can turn off ordering by distance in config.js file
+    config: {},
   },
   {
-    key: 'own_drinks',
-    label: 'Own drinks allowed',
+    id: 'category',
+    label: 'Category',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_category',
+    config: {
+      options: [
+        { key: 'smoke', label: 'Smoke' },
+        { key: 'electric', label: 'Electric' },
+        { key: 'wood', label: 'Wood' },
+        { key: 'other', label: 'Other' },
+      ],
+    },
   },
   {
-    key: 'jacuzzi',
-    label: 'Jacuzzi',
-  },
-  {
-    key: 'audiovisual_entertainment',
-    label: 'Audiovisual entertainment',
-  },
-  {
-    key: 'barbeque',
-    label: 'Barbeque',
-  },
-  {
-    key: 'own_food_allowed',
-    label: 'Own food allowed',
+    id: 'amenities',
+    label: 'Amenities',
+    type: 'SelectMultipleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_amenities',
+    config: {
+      searchMode: 'has_all',
+      options: [
+        {
+          key: 'towels',
+          label: 'Towels',
+        },
+        {
+          key: 'bathroom',
+          label: 'Bathroom',
+        },
+        {
+          key: 'swimming_pool',
+          label: 'Swimming pool',
+        },
+        {
+          key: 'own_drinks',
+          label: 'Own drinks allowed',
+        },
+        {
+          key: 'jacuzzi',
+          label: 'Jacuzzi',
+        },
+        {
+          key: 'audiovisual_entertainment',
+          label: 'Audiovisual entertainment',
+        },
+        {
+          key: 'barbeque',
+          label: 'Barbeque',
+        },
+        {
+          key: 'own_food_allowed',
+          label: 'Own food allowed',
+        },
+      ],
+    },
   },
 ];
-
-export const categories = [
-  { key: 'smoke', label: 'Smoke' },
-  { key: 'electric', label: 'Electric' },
-  { key: 'wood', label: 'Wood' },
-  { key: 'other', label: 'Other' },
-];
-
-// Price filter configuration
-// Note: unlike most prices this is not handled in subunits
-export const priceFilterConfig = {
-  min: 0,
-  max: 1000,
-  step: 5,
-};
-
-// Activate booking dates filter on search page
-export const dateRangeFilterConfig = {
-  active: true,
-};
-
-// Activate keyword filter on search page
-
-// NOTE: If you are ordering search results by distance the keyword search can't be used at the same time.
-// You can turn off ordering by distance in config.js file
-export const keywordFilterConfig = {
-  active: true,
-};
 
 export const sortConfig = {
   // Enable/disable the sorting control in the SearchPage
@@ -71,6 +103,8 @@ export const sortConfig = {
 
   // Internal key for the relevance option, see notes below.
   relevanceKey: 'relevance',
+
+  conflictingFilters: ['keyword'],
 
   options: [
     { key: 'createdAt', label: 'Newest' },

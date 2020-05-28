@@ -10,16 +10,38 @@ const urlParams = {
   pub_amenities: 'towels,bathroom',
 };
 
-const filters = {
-  categoryFilter: {
-    paramName: 'pub_category',
-    options: [{ key: 'smoke' }, { key: 'wooden' }],
+const filters = [
+  {
+    id: 'category',
+    label: 'Category',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_category',
+    config: {
+      options: [{ key: 'smoke', label: 'Smoke' }, { key: 'wooden', label: 'Wood' }],
+    },
   },
-  amenitiesFilter: {
-    paramName: 'pub_amenities',
-    options: [{ key: 'towels' }, { key: 'bathroom' }],
+  {
+    id: 'amenities',
+    label: 'Amenities',
+    type: 'SelectMultipleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_amenities',
+    config: {
+      mode: 'has_all',
+      options: [
+        {
+          key: 'towels',
+          label: 'Towels',
+        },
+        {
+          key: 'bathroom',
+          label: 'Bathroom',
+        },
+      ],
+    },
   },
-};
+];
 
 describe('SearchPage.helpers', () => {
   describe('validURLParamForExtendedData', () => {

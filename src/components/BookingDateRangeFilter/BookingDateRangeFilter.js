@@ -24,6 +24,7 @@ export class BookingDateRangeFilterComponent extends Component {
       onSubmit,
       urlParam,
       intl,
+      label,
       ...rest
     } = this.props;
 
@@ -48,6 +49,8 @@ export class BookingDateRangeFilterComponent extends Component {
             dates: `${formattedStartDate} - ${formattedEndDate}`,
           }
         )
+      : label
+      ? label
       : intl.formatMessage({ id: 'BookingDateRangeFilter.labelPlain' });
 
     const labelForPopup = isSelected
@@ -57,6 +60,8 @@ export class BookingDateRangeFilterComponent extends Component {
             dates: `${formattedStartDate} - ${formattedEndDate}`,
           }
         )
+      : label
+      ? label
       : intl.formatMessage({ id: 'BookingDateRangeFilter.labelPopup' });
 
     const onClearPopupMaybe =

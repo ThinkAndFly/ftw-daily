@@ -103,6 +103,7 @@ class PriceFilterPopup extends Component {
       step,
       intl,
       currencyConfig,
+      label,
     } = this.props;
     const classes = classNames(rootClassName || css.root, className);
     const { minPrice, maxPrice } = initialValues || {};
@@ -110,7 +111,7 @@ class PriceFilterPopup extends Component {
     const hasValue = value => value != null;
     const hasInitialValues = initialValues && hasValue(minPrice) && hasValue(maxPrice);
 
-    const label = hasInitialValues
+    const currentLabel = hasInitialValues
       ? intl.formatMessage(
           { id: 'PriceFilter.labelSelectedButton' },
           {
@@ -118,6 +119,8 @@ class PriceFilterPopup extends Component {
             maxPrice: formatCurrencyMajorUnit(intl, currencyConfig.currency, maxPrice),
           }
         )
+      : label
+      ? label
       : intl.formatMessage({ id: 'PriceFilter.label' });
 
     const labelStyles = hasInitialValues ? css.labelSelected : css.label;
@@ -133,7 +136,7 @@ class PriceFilterPopup extends Component {
         }}
       >
         <button className={labelStyles} onClick={() => this.toggleOpen()}>
-          {label}
+          {currentLabel}
         </button>
         <PriceFilterForm
           id={id}

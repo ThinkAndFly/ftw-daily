@@ -45,6 +45,7 @@ class PriceFilterPlainComponent extends Component {
       step,
       intl,
       currencyConfig,
+      label,
     } = this.props;
     const classes = classNames(rootClassName || css.root, className);
     const { minPrice, maxPrice } = initialValues || {};
@@ -61,6 +62,8 @@ class PriceFilterPlainComponent extends Component {
             maxPrice: formatCurrencyMajorUnit(intl, currencyConfig.currency, maxPrice),
           }
         )
+      : label
+      ? label
       : intl.formatMessage({ id: 'PriceFilter.label' });
 
     return (
